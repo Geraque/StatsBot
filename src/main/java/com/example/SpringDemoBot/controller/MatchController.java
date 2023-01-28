@@ -82,6 +82,69 @@ public class MatchController {
 		return ResponseEntity.ok().body(arr);
 	}
 
+	@GetMapping("/getrating")
+	public ResponseEntity<String[]> getRating()
+			throws ResourceNotFoundException {
+		List<Match> doceho = matchRepository.findAll();
+		List<Match> result = new ArrayList<Match>();
+
+		float[] desmond = new float[2];
+		float[] blackVision = new float[2];
+		float[] lakich = new float[2];
+		float[] tilt = new float[2];
+		float[] nekit = new float[2];
+
+		for(Match des: doceho){
+			if(des.getName().equals("desmond")){
+				desmond[0]+=1;
+				desmond[1]+=des.getRating();
+			}
+			else if(des.getName().equals("BlackVision")){
+				blackVision[0]+=1;
+				blackVision[1]+=des.getRating();
+			}
+			else if(des.getName().equals("Tilt")){
+				tilt[0]+=1;
+				tilt[1]+=des.getRating();
+			}
+			else if(des.getName().equals("Lakich")){
+				lakich[0]+=1;
+				lakich[1]+=des.getRating();
+			}
+			else if (des.getName().equals("221w33")){
+				nekit[0]+=1;
+				nekit[1]+=des.getRating();
+			}
+		}
+		int num=0;
+		float max=desmond[1]/desmond[0];
+		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
+				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+		for(int i =1; i<5;i++){
+			if(arr[i] > max){
+				num = i;
+				max = arr[i];
+			}
+		}
+		String[] res = new String[3];
+		if(num==0){
+			res = new String[]{"Desmond",String.valueOf(desmond[0]), String.valueOf(desmond[1]/desmond[0])};
+		}
+		else if(num==1){
+			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
+		}
+		else if(num==2){
+			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+		}
+		else if(num==3){
+			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+		}
+		else {
+			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
+		}
+		return ResponseEntity.ok().body(res);
+	}
+
 	@GetMapping("/getclutches")
 	public ResponseEntity<String[]> getClutches()
 			throws ResourceNotFoundException {

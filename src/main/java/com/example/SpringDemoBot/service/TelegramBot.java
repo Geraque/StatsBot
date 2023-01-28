@@ -63,10 +63,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "Топ по категории":
                     topCategory(chatId);
                     break;
-                case"Топ клатч":
+                case "Топ клатч":
                     topClutch(chatId);
                     break;
-
+                case "Топ рейтинг":
+                    topRating(chatId);
+                    break;
                 default:
                     sendMessage(chatId,"Sorry, nope!");
             }
@@ -102,6 +104,19 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "\n1vs3: "+arr[4]+
                 "\n1vs4: "+arr[5]+
                 "\n1vs5: "+arr[6];
+        sendMessage(chatId,answer);
+    }
+
+    private void topRating(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getrating", String.class);
+        String[] arr = http.split(",");
+
+        String answer = "Топ по рейтингу: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nОбщий рейтинг: "+arr[2];
         sendMessage(chatId,answer);
     }
 
