@@ -3,6 +3,7 @@ package com.example.SpringDemoBot.service;
 import com.example.SpringDemoBot.config.BotConfig;
 import com.example.SpringDemoBot.controller.MatchController;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -14,6 +15,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -62,6 +64,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                     topCategory(chatId);
                     break;
                 case"Топ клатч":
+                    topClutch(chatId);
+                    break;
 
                 default:
                     sendMessage(chatId,"Sorry, nope!");
@@ -84,7 +88,20 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
     private void topClutch(long chatId){
-        String answer = "Выберите категорию";
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getclutches", String.class);
+        String[] arr = http.split(",");
+
+        String answer = "Топ по клатчам: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nОбщее количество клатчей: "+arr[7]+
+                "\n1vs1: "+arr[2]+
+                "\n1vs2: "+arr[3]+
+                "\n1vs3: "+arr[4]+
+                "\n1vs4: "+arr[5]+
+                "\n1vs5: "+arr[6];
         sendMessage(chatId,answer);
     }
 
