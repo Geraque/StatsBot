@@ -7,6 +7,8 @@ import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
@@ -145,7 +147,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     sucks(chatId,update.getMessage().getChat().getLastName());
                     break;
                 default:
-                    sendMessage(chatId,"Sorry, nope!");
+                    sendSticker(chatId);
             }
         }
     }
@@ -523,6 +525,45 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         try{
             execute(message);
+        }
+        catch (TelegramApiException e){
+        }
+    }
+
+    private void sendSticker(long chatId){
+        SendSticker sticker = new SendSticker();
+        sticker.setChatId(String.valueOf(chatId));
+        int count = (int) (Math.random() * (8 - 1)) + 1;
+        InputFile inputFile;
+        switch (count){
+            case 1:
+                inputFile = new InputFile("CAACAgIAAxkBAAEHgedj1rX8S4TWKfEQ-9Owr0gEJpDTnAACvhgAAj7NqUo7W-hz6hfpuS0E");
+                break;
+            case 2:
+                inputFile = new InputFile("CAACAgIAAxkBAAEHgelj1rX_jf2sltUaYjE4L8sdvikWAAOeFgACVxapSl9TpekM2nVTLQQ");
+                break;
+            case 3:
+                inputFile = new InputFile("CAACAgIAAxkBAAEHgetj1rYAAWmmy3WcLF2I6MVpXRgXHxEAAiIVAAKgHqlK67A2JSEfV8YtBA");
+                break;
+            case 4:
+                inputFile = new InputFile("CAACAgIAAxkBAAEHge1j1rYB7sMTOpql_5mII5Qr2HxXzwACXRMAAv9lqEr7OtCFuXEgni0E");
+                break;
+            case 5:
+                inputFile = new InputFile("CAACAgIAAxkBAAEHge9j1rYDFBzor5qiqZzJnb21ryMsfQACZBYAAlJTqUqb2388kE__4i0E");
+                break;
+            case 6:
+                inputFile = new InputFile("CAACAgIAAxkBAAEHgfJj1rYFHaqMODkmus-ysywF8rfP_gACmRUAApFvGUgSZwEa2E-Wei0E");
+                break;
+            case 7:
+                inputFile = new InputFile("CAACAgIAAxkBAAEHgfZj1rYHr-LW-yL-6Ee23M6kj8iKWQACsxsAAufYGEj0DKfma4RwmS0E");
+                break;
+            default:
+                inputFile = new InputFile("CAACAgIAAxkBAAEHgfhj1rYKYgxrQVA8ej3vTO27U1OMKAACtxYAAsbYIEgxxoDMn3yL4C0E");
+        }
+        sticker.setSticker(inputFile);
+
+        try{
+            execute(sticker);
         }
         catch (TelegramApiException e){
         }
