@@ -90,6 +90,21 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "Топ ace":
                     topAce(chatId);
                     break;
+                case "18 год":
+                    topYear(chatId,2018);
+                    break;
+                case "19 год":
+                    topYear(chatId,2019);
+                    break;
+                case "20 год":
+                    topYear(chatId,2020);
+                    break;
+                case "21 год":
+                    topYear(chatId,2021);
+                    break;
+                case "22 год":
+                    topYear(chatId,2022);
+                    break;
 
                 default:
                     sendMessage(chatId,"Sorry, nope!");
@@ -127,6 +142,27 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "\n1vs3: "+arr[4]+
                 "\n1vs4: "+arr[5]+
                 "\n1vs5: "+arr[6];
+        sendMessage(chatId,answer);
+    }
+
+    private void topYear(long chatId,int year){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/top/getbyyear/"+year, String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+
+        StringBuilder answerb = new StringBuilder("Топ "+year+" года: ") ;
+
+        for (int i = 1; i < arr.length; i+=3) {
+            answerb.append("\nИгрок: ").append(arr[i])
+                    .append("\nМесто: ").append(arr[i+1])
+                    .append("\nОбщий рейтинг: ").append(arr[i+2]);
+            answerb.append("\n------------------");
+        }
+        String answer = String.valueOf(answerb);
+
+
         sendMessage(chatId,answer);
     }
 

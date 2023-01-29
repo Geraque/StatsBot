@@ -1,6 +1,7 @@
 package com.example.SpringDemoBot.controller;
 
 import com.example.SpringDemoBot.exception.ResourceNotFoundException;
+import com.example.SpringDemoBot.model.Match;
 import com.example.SpringDemoBot.model.Top;
 import com.example.SpringDemoBot.repository.TopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,32 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/top")
 public class TopController {
 	@Autowired
 	private TopRepository topRepository;
 
-	@GetMapping("/top")
+	@GetMapping("/all")
 	public List<Top> getAllTop() {
 		return topRepository.findAll();
 	}
 
-	@GetMapping("/top/{id}")
+	@GetMapping("/getbyyear/{year}")
+	public ResponseEntity<List<String>> getYearTop(@PathVariable(value = "year") int year) {
+		List<Top> doceho = topRepository.findAll();
+		List<String> list = new ArrayList<>();
+		list.add(String.valueOf(year));
+		for(Top des: doceho){
+			if(des.getYear()==year){
+				list.add(des.getName());
+				list.add(des.getPlace());
+				list.add(String.valueOf(des.getRating()));
+			}
+		}
+		return ResponseEntity.ok().body(list);
+	}
+
+	@GetMapping("/{id}")
 	public ResponseEntity<Top> getTopById(@PathVariable(value = "id") Long topId)
 			throws ResourceNotFoundException {
 		Top top = topRepository.findById(topId)
@@ -32,7 +48,7 @@ public class TopController {
 		return ResponseEntity.ok().body(top);
 	}
 
-	@GetMapping("/top/getbyname/{name}")
+	@GetMapping("/getbyname/{name}")
 	public ResponseEntity<List<Top>> getTopByName(@PathVariable(value = "name") String topName)
 			throws ResourceNotFoundException {
 		List<Top> top = topRepository.findAll();
@@ -45,12 +61,12 @@ public class TopController {
 		return ResponseEntity.ok().body(result);
 	}
 
-	@PostMapping("/top")
+	@PostMapping("/create")
 	public Top createTop(@Valid @RequestBody Top top) {
 		return topRepository.save(top);
 	}
 
-	@PutMapping("/top/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Top> updateTop(@PathVariable(value = "id") Long topId,
 			@Valid @RequestBody Top topDetails) throws ResourceNotFoundException {
 		Top top = topRepository.findById(topId)
@@ -66,7 +82,7 @@ public class TopController {
 		return ResponseEntity.ok(updatedTop);
 	}
 
-	@DeleteMapping("/top/{id}")
+	@DeleteMapping("/{id}")
 	public Map<String, Boolean> deleteTop(@PathVariable(value = "id") Long topId)
 			throws ResourceNotFoundException {
 		Top top = topRepository.findById(topId)
