@@ -63,6 +63,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "Топ по категории":
                     topCategory(chatId);
                     break;
+                case "Топ со всей статой":
+                    playerStats(chatId);
+                    break;
                 case "Вся статистика":
                     allStats(chatId);
                     break;
@@ -123,8 +126,24 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "Матчи 221w33":
                     allMatchesByPlayer(chatId,"221w33");
                     break;
-                case "Топ со всей статой":
-                    allStatsTop(chatId);
+                case "Статистика Desmond":
+                    allStatsByName(chatId,"desmond");
+                    break;
+                case "Статистика BlackVision":
+                    allStatsByName(chatId,"BlackVision");
+                    break;
+                case "Статистика Tilt":
+                    allStatsByName(chatId,"Tilt");
+                    break;
+                case "Статистика Lakich":
+                    allStatsByName(chatId,"Lakich");
+                    break;
+                case "Статистика 221w33":
+                    allStatsByName(chatId,"221w33");
+                    break;
+                case "Ну нажми, ну пожалуйста":
+                    sucks(chatId,update.getMessage().getChat().getLastName());
+                    break;
                 default:
                     sendMessage(chatId,"Sorry, nope!");
             }
@@ -148,6 +167,17 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void allStats(long chatId){
         String answer = "Нажми на кнопку";
+        sendMessage(chatId,answer);
+    }
+
+    private void playerStats(long chatId){
+        String answer = "Статистика, моя статистика";
+        sendMessage(chatId,answer);
+    }
+
+    private void sucks(long chatId, String name){
+        String answer = name+" ты думал что-то здесь будет? О нет. От тебя воняет говном, даже отсюда чувствую," +
+                " закрывай, закрывай бота и иди нахуй. Друг крутой, а ты лоханулся, сука. Аа, блядь. А.";
         sendMessage(chatId,answer);
     }
     private void topClutch(long chatId){
@@ -188,23 +218,34 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
 
-    private void allStatsTop(long chatId){
+    private void allStatsByName(long chatId,String name){
         RestTemplate restTemplate = new RestTemplate();
 
-        String http = restTemplate.getForObject("http://localhost:8080/top/getbyyear/", String.class);
+        String http = restTemplate.getForObject("http://localhost:8080/getplayerstats/"+name, String.class);
         http = http.replaceAll("[\\[-\\]\"]","");
         String[] arr = http.split(",");
 
-        StringBuilder answerb = new StringBuilder("Топ  года: ") ;
+        StringBuilder answerb = new StringBuilder("Статистика "+name+" за всё время: "+"\n------\n");
 
-        for (int i = 1; i < arr.length; i+=3) {
-            answerb.append("\nИгрок: ").append(arr[i])
-                    .append("\nМесто: ").append(arr[i+1])
-                    .append("\nОбщий рейтинг: ").append(arr[i+2]);
-            answerb.append("\n------------------");
-        }
+        answerb.append("\nКол-во матчей: ").append(arr[0])
+                .append("\nРейтинг: ").append(arr[1])
+                .append("\nУбийства в смок: ").append(arr[2])
+                .append("\nЭнтри: ").append(arr[3])
+                .append("\nТрипл килл: ").append(arr[4])
+                .append("\nКвадро килл: ").append(arr[5])
+                .append("\nЭйс: ").append(arr[6])
+                .append("\nФлеш: ").append(arr[7])
+                .append("\nРазмен: ").append(arr[8])
+                .append("\nПрострел: ").append(arr[9])
+                .append("\n1vs1: ").append(arr[10])
+                .append("\n1vs2: ").append(arr[11])
+                .append("\n1vs3: ").append(arr[12])
+                .append("\n1vs4: ").append(arr[13])
+                .append("\n1vs5: ").append(arr[14]);
+
         String answer = String.valueOf(answerb);
         sendMessage(chatId,answer);
+
     }
 
     private void allMatchesByPlayer(long chatId, String name){
@@ -435,6 +476,30 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
+    private void playerStatsButton(SendMessage message){
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add("Статистика Desmond");
+        row.add("Статистика BlackVision");
+        row.add("Статистика Tilt");
+
+        keyboardRows.add(row);
+
+        row = new KeyboardRow();
+
+        row.add("Статистика Lakich");
+        row.add("Статистика 221w33");
+        row.add("Ну нажми, ну пожалуйста");
+
+        keyboardRows.add(row);
+
+        keyboardMarkup.setKeyboard(keyboardRows);
+        message.setReplyMarkup(keyboardMarkup);
+
+    }
+
     private void sendMessage(long chatId, String textToSend){
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
@@ -451,6 +516,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                 break;
             case "Нажми на кнопку":
                 allStatsButton(message);
+                break;
+            case "Статистика, моя статистика":
+                playerStatsButton(message);
         }
 
         try{

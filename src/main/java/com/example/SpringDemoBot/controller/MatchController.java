@@ -78,7 +78,121 @@ public class MatchController {
 				arr[14]+=des.getClutchFive();
 			}
 		}
-		arr[1]/=arr[0];
+		for (int i = 1; i < 15; i++) {
+			arr[i]/=arr[0];
+		}
+		return ResponseEntity.ok().body(arr);
+	}
+
+	@GetMapping("/getallstats")
+	public ResponseEntity<float[]> getAllStats()
+			throws ResourceNotFoundException {
+		List<Match> match = matchRepository.findAll();
+		float[] arr = new float[75];
+		for(Match des: match){
+			switch (des.getName()){
+				case "desmond":
+					arr[0]++;
+					arr[1]+=des.getRating();
+					arr[2]+=des.getSmokeKill();
+					arr[3]+=des.getOpenKill();
+					arr[4]+=des.getThreeKill();
+					arr[5]+=des.getFourKill();
+					arr[6]+=des.getAce();
+					arr[7]+=des.getFlash();
+					arr[8]+=des.getTrade();
+					arr[9]+=des.getWallbang();
+					arr[10]+=des.getClutchOne();
+					arr[11]+=des.getClutchTwo();
+					arr[12]+=des.getClutchThree();
+					arr[13]+=des.getClutchFour();
+					arr[14]+=des.getClutchFive();
+					break;
+				case "BlackVision":
+					arr[15]++;
+					arr[16]+=des.getRating();
+					arr[17]+=des.getSmokeKill();
+					arr[18]+=des.getOpenKill();
+					arr[19]+=des.getThreeKill();
+					arr[20]+=des.getFourKill();
+					arr[21]+=des.getAce();
+					arr[22]+=des.getFlash();
+					arr[23]+=des.getTrade();
+					arr[24]+=des.getWallbang();
+					arr[25]+=des.getClutchOne();
+					arr[26]+=des.getClutchTwo();
+					arr[27]+=des.getClutchThree();
+					arr[28]+=des.getClutchFour();
+					arr[29]+=des.getClutchFive();
+					break;
+				case "Tilt":
+					arr[30]++;
+					arr[31]+=des.getRating();
+					arr[32]+=des.getSmokeKill();
+					arr[33]+=des.getOpenKill();
+					arr[34]+=des.getThreeKill();
+					arr[35]+=des.getFourKill();
+					arr[36]+=des.getAce();
+					arr[37]+=des.getFlash();
+					arr[38]+=des.getTrade();
+					arr[39]+=des.getWallbang();
+					arr[40]+=des.getClutchOne();
+					arr[41]+=des.getClutchTwo();
+					arr[42]+=des.getClutchThree();
+					arr[43]+=des.getClutchFour();
+					arr[44]+=des.getClutchFive();
+					break;
+				case "Lakich":
+					arr[45]++;
+					arr[46]+=des.getRating();
+					arr[47]+=des.getSmokeKill();
+					arr[48]+=des.getOpenKill();
+					arr[49]+=des.getThreeKill();
+					arr[50]+=des.getFourKill();
+					arr[51]+=des.getAce();
+					arr[52]+=des.getFlash();
+					arr[53]+=des.getTrade();
+					arr[54]+=des.getWallbang();
+					arr[55]+=des.getClutchOne();
+					arr[56]+=des.getClutchTwo();
+					arr[57]+=des.getClutchThree();
+					arr[58]+=des.getClutchFour();
+					arr[59]+=des.getClutchFive();
+					break;
+				case "221w33":
+					arr[60]++;
+					arr[61]+=des.getRating();
+					arr[62]+=des.getSmokeKill();
+					arr[63]+=des.getOpenKill();
+					arr[64]+=des.getThreeKill();
+					arr[65]+=des.getFourKill();
+					arr[66]+=des.getAce();
+					arr[67]+=des.getFlash();
+					arr[68]+=des.getTrade();
+					arr[69]+=des.getWallbang();
+					arr[70]+=des.getClutchOne();
+					arr[71]+=des.getClutchTwo();
+					arr[72]+=des.getClutchThree();
+					arr[73]+=des.getClutchFour();
+					arr[74]+=des.getClutchFive();
+					break;
+			}
+		}
+		for (int i = 1; i < 15; i++) {
+			arr[i]/=arr[0];
+		}
+		for (int i = 16; i < 30; i++) {
+			arr[i]/=arr[15];
+		}
+		for (int i = 31; i < 45; i++) {
+			arr[i]/=arr[30];
+		}
+		for (int i = 46; i < 60; i++) {
+			arr[i]/=arr[45];
+		}
+		for (int i = 61; i < 75; i++) {
+			arr[i]/=arr[60];
+		}
 		return ResponseEntity.ok().body(arr);
 	}
 
