@@ -55,13 +55,16 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             switch(messageText){
                 case "/start":
-                    startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
+                    startCommandReceived(chatId);
                     break;
                 case "Игрок года":
                     topPlayer(chatId);
                     break;
                 case "Топ по категории":
                     topCategory(chatId);
+                    break;
+                case "Вся статистика":
+                    allStats(chatId);
                     break;
                 case "Топ клатч":
                     topClutch(chatId);
@@ -105,15 +108,31 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "22 год":
                     topYear(chatId,2022);
                     break;
-
+                case "Матчи Desmond":
+                    allMatchesByPlayer(chatId,"desmond");
+                    break;
+                case "Матчи BlackVision":
+                    allMatchesByPlayer(chatId,"BlackVision");
+                    break;
+                case "Матчи Tilt":
+                    allMatchesByPlayer(chatId,"Tilt");
+                    break;
+                case "Матчи Lakich":
+                    allMatchesByPlayer(chatId,"Lakich");
+                    break;
+                case "Матчи 221w33":
+                    allMatchesByPlayer(chatId,"221w33");
+                    break;
+                case "Топ со всей статой":
+                    allStatsTop(chatId);
                 default:
                     sendMessage(chatId,"Sorry, nope!");
             }
         }
     }
 
-    private void startCommandReceived(long chatId, String name){
-        String answer = "Hi, "+name+", nice to meet you!";
+    private void startCommandReceived(long chatId){
+        String answer = "Hi, Cheboksar!";
         sendMessage(chatId,answer);
     }
 
@@ -124,6 +143,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void topCategory(long chatId){
         String answer = "Выберите категорию";
+        sendMessage(chatId,answer);
+    }
+
+    private void allStats(long chatId){
+        String answer = "Нажми на кнопку";
         sendMessage(chatId,answer);
     }
     private void topClutch(long chatId){
@@ -161,8 +185,58 @@ public class TelegramBot extends TelegramLongPollingBot {
             answerb.append("\n------------------");
         }
         String answer = String.valueOf(answerb);
+        sendMessage(chatId,answer);
+    }
 
+    private void allStatsTop(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
 
+        String http = restTemplate.getForObject("http://localhost:8080/top/getbyyear/", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+
+        StringBuilder answerb = new StringBuilder("Топ  года: ") ;
+
+        for (int i = 1; i < arr.length; i+=3) {
+            answerb.append("\nИгрок: ").append(arr[i])
+                    .append("\nМесто: ").append(arr[i+1])
+                    .append("\nОбщий рейтинг: ").append(arr[i+2]);
+            answerb.append("\n------------------");
+        }
+        String answer = String.valueOf(answerb);
+        sendMessage(chatId,answer);
+    }
+
+    private void allMatchesByPlayer(long chatId, String name){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getbyname/"+name, String.class);
+        http = http.replaceAll("[\\[-\\]\"{}]","");
+        String[] arr = http.split(",");
+
+        StringBuilder answerb = new StringBuilder("Последние 7 матчей " +name+":\n") ;
+        System.out.println(arr.length);
+        for (int i = 0; i < arr.length; i+=18) {
+            answerb.append("\n").append(arr[i+2])
+                    .append("\n").append(arr[i+3])
+                    .append("\n").append(arr[i+4])
+                    .append("\n").append(arr[i+5])
+                    .append("\n").append(arr[i+6])
+                    .append("\n").append(arr[i+7])
+                    .append("\n").append(arr[i+8])
+                    .append("\n").append(arr[i+9])
+                    .append("\n").append(arr[i+10])
+                    .append("\n").append(arr[i+11])
+                    .append("\n").append(arr[i+12])
+                    .append("\n").append(arr[i+13])
+                    .append("\n").append(arr[i+14])
+                    .append("\n").append(arr[i+15])
+                    .append("\n").append(arr[i+16])
+                    .append("\n").append(arr[i+17]);
+            answerb.append("\n------------------");
+        }
+
+        String answer = String.valueOf(answerb);
         sendMessage(chatId,answer);
     }
 
@@ -277,6 +351,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         KeyboardRow row = new KeyboardRow();
         row.add("Игрок года");
         row.add("Топ по категории");
+        row.add("Вся статистика");
 
         keyboardRows.add(row);
 
@@ -298,7 +373,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         row = new KeyboardRow();
         row.add("21 год");
         row.add("22 год");
-        row.add("23 год");
 
         keyboardRows.add(row);
 
@@ -337,12 +411,36 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
+    private void allStatsButton(SendMessage message){
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add("Матчи Desmond");
+        row.add("Матчи BlackVision");
+        row.add("Матчи Tilt");
+
+        keyboardRows.add(row);
+
+        row = new KeyboardRow();
+
+        row.add("Матчи Lakich");
+        row.add("Матчи 221w33");
+        row.add("Топ со всей статой");
+
+        keyboardRows.add(row);
+
+        keyboardMarkup.setKeyboard(keyboardRows);
+        message.setReplyMarkup(keyboardMarkup);
+
+    }
+
     private void sendMessage(long chatId, String textToSend){
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);
         switch(textToSend){
-            case "Hi, Alexander, nice to meet you!":
+            case "Hi, Cheboksar!":
                 startButton(message);
                 break;
             case "Выберите год":
@@ -351,38 +449,9 @@ public class TelegramBot extends TelegramLongPollingBot {
             case "Выберите категорию":
                 topCategoryButton(message);
                 break;
+            case "Нажми на кнопку":
+                allStatsButton(message);
         }
-
-        try{
-            execute(message);
-        }
-        catch (TelegramApiException e){
-        }
-    }
-
-    private void sendMessage2(long chatId, String textToSend){
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(textToSend);
-        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
-
-        List<KeyboardRow> keyboardRows = new ArrayList<>();
-        KeyboardRow row = new KeyboardRow();
-        row.add("18 год");
-        row.add("19 год");
-        row.add("20 год");
-
-        keyboardRows.add(row);
-
-        row = new KeyboardRow();
-        row.add("21 год");
-        row.add("22 год");
-        row.add("23 год");
-
-        keyboardRows.add(row);
-
-        keyboardMarkup.setKeyboard(keyboardRows);
-        message.setReplyMarkup(keyboardMarkup);
 
         try{
             execute(message);

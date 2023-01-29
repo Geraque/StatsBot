@@ -1,9 +1,6 @@
 package com.example.SpringDemoBot.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.validation.Valid;
 
@@ -45,10 +42,13 @@ public class MatchController {
 	public ResponseEntity<List<Match>> getMatchByName(@PathVariable(value = "name") String matchName)
 			throws ResourceNotFoundException {
 		List<Match> match = matchRepository.findAll();
+		Collections.reverse(match);
 		List<Match> result = new ArrayList<Match>();
+		int count =0;
 		for(Match des: match){
-			if(des.getName().equals(matchName)){
+			if(des.getName().equals(matchName) && count<7){
 				result.add(des);
+				count++;
 			}
 		}
 		return ResponseEntity.ok().body(result);
