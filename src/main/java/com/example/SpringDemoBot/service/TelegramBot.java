@@ -69,6 +69,28 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "Топ рейтинг":
                     topRating(chatId);
                     break;
+                case "Топ энтри":
+                    topOpenKill(chatId);
+                    break;
+                case "Топ флеш":
+                    topFlash(chatId);
+                    break;
+                case "Топ размен":
+                    topTrade(chatId);
+                    break;
+                case "Топ прострел":
+                    topWallbang(chatId);
+                    break;
+                case "Топ 3 kill":
+                    topThreeKill(chatId);
+                    break;
+                case "Топ 4 kill":
+                    topFourKill(chatId);
+                    break;
+                case "Топ ace":
+                    topAce(chatId);
+                    break;
+
                 default:
                     sendMessage(chatId,"Sorry, nope!");
             }
@@ -93,6 +115,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         RestTemplate restTemplate = new RestTemplate();
 
         String http = restTemplate.getForObject("http://localhost:8080/getclutches", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
         String[] arr = http.split(",");
 
         String answer = "Топ по клатчам: " +
@@ -111,12 +134,103 @@ public class TelegramBot extends TelegramLongPollingBot {
         RestTemplate restTemplate = new RestTemplate();
 
         String http = restTemplate.getForObject("http://localhost:8080/getrating", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
         String[] arr = http.split(",");
 
         String answer = "Топ по рейтингу: " +
                 "\nИгрок: "+arr[0]+
                 "\nВсего игр: "+arr[1]+
                 "\nОбщий рейтинг: "+arr[2];
+        sendMessage(chatId,answer);
+    }
+
+    private void topOpenKill(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getopenkill", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+        String answer = "Топ по энтри: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nЭнтри за матч: "+arr[2];
+        sendMessage(chatId,answer);
+    }
+
+    private void topFlash(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getflash", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+        String answer = "Топ по кол-ву флешек: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nФлешек за матч: "+arr[2];
+        sendMessage(chatId,answer);
+    }
+
+    private void topTrade(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/gettrade", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+        String answer = "Топ по кол-ву разменов: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nРазменов за матч: "+arr[2];
+        sendMessage(chatId,answer);
+    }
+
+    private void topWallbang(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getwallbang", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+        String answer = "Топ по кол-ву прострелов: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nПрострелов за матч: "+arr[2];
+        sendMessage(chatId,answer);
+    }
+    private void topThreeKill(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getthreekill", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+        String answer = "Топ по кол-ву трипл киллов: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nТрипл киллов за матч: "+arr[2];
+        sendMessage(chatId,answer);
+    }
+
+    private void topFourKill(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getfourkill", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+        String answer = "Топ по кол-ву квадро киллов: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nКвадро киллов за матч: "+arr[2];
+        sendMessage(chatId,answer);
+    }
+
+    private void topAce(long chatId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        String http = restTemplate.getForObject("http://localhost:8080/getace", String.class);
+        http = http.replaceAll("[\\[-\\]\"]","");
+        String[] arr = http.split(",");
+        String answer = "Топ по кол-ву эйсов: " +
+                "\nИгрок: "+arr[0]+
+                "\nВсего игр: "+arr[1]+
+                "\nэйсов за матч: "+arr[2];
         sendMessage(chatId,answer);
     }
 
