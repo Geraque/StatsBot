@@ -91,7 +91,7 @@ public class MatchController {
 		float[] arr = new float[75];
 		for(Match des: match){
 			switch (des.getName()){
-				case "desmond":
+				case "Desmond":
 					arr[0]++;
 					arr[1]+=des.getRating();
 					arr[2]+=des.getSmokeKill();
@@ -125,7 +125,7 @@ public class MatchController {
 					arr[28]+=des.getClutchFour();
 					arr[29]+=des.getClutchFive();
 					break;
-				case "Tilt":
+				case "B4one":
 					arr[30]++;
 					arr[31]+=des.getRating();
 					arr[32]+=des.getSmokeKill();
@@ -142,7 +142,7 @@ public class MatchController {
 					arr[43]+=des.getClutchFour();
 					arr[44]+=des.getClutchFive();
 					break;
-				case "Lakich":
+				case "Gloxinia":
 					arr[45]++;
 					arr[46]+=des.getRating();
 					arr[47]+=des.getSmokeKill();
@@ -203,12 +203,12 @@ public class MatchController {
 
 		float[] desmond = new float[2];
 		float[] blackVision = new float[2];
-		float[] lakich = new float[2];
+		float[] gloxinia = new float[2];
 		float[] tilt = new float[2];
 		float[] nekit = new float[2];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=1;
 				desmond[1]+=des.getRating();
 			}
@@ -216,13 +216,13 @@ public class MatchController {
 				blackVision[0]+=1;
 				blackVision[1]+=des.getRating();
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=1;
 				tilt[1]+=des.getRating();
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=1;
-				lakich[1]+=des.getRating();
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=1;
+				gloxinia[1]+=des.getRating();
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=1;
@@ -232,7 +232,7 @@ public class MatchController {
 		int num=0;
 		float max=desmond[1]/desmond[0];
 		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
-				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+				tilt[1]/tilt[0],gloxinia[1]/gloxinia[0],nekit[1]/nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -247,10 +247,10 @@ public class MatchController {
 			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]/gloxinia[0])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
@@ -265,12 +265,12 @@ public class MatchController {
 
 		float[] desmond = new float[2];
 		float[] blackVision = new float[2];
-		float[] lakich = new float[2];
+		float[] gloxinia = new float[2];
 		float[] tilt = new float[2];
 		float[] nekit = new float[2];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=1;
 				desmond[1]+=des.getOpenKill();
 			}
@@ -278,13 +278,13 @@ public class MatchController {
 				blackVision[0]+=1;
 				blackVision[1]+=des.getOpenKill();
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=1;
 				tilt[1]+=des.getOpenKill();
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=1;
-				lakich[1]+=des.getOpenKill();
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=1;
+				gloxinia[1]+=des.getOpenKill();
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=1;
@@ -294,7 +294,7 @@ public class MatchController {
 		int num=0;
 		float max=desmond[1]/desmond[0];
 		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
-				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+				tilt[1]/tilt[0],gloxinia[1]/gloxinia[0],nekit[1]/nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -309,10 +309,10 @@ public class MatchController {
 			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]/gloxinia[0])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
@@ -327,12 +327,12 @@ public class MatchController {
 
 		float[] desmond = new float[2];
 		float[] blackVision = new float[2];
-		float[] lakich = new float[2];
+		float[] gloxinia = new float[2];
 		float[] tilt = new float[2];
 		float[] nekit = new float[2];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=1;
 				desmond[1]+=des.getFlash();
 			}
@@ -340,13 +340,13 @@ public class MatchController {
 				blackVision[0]+=1;
 				blackVision[1]+=des.getFlash();
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=1;
 				tilt[1]+=des.getFlash();
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=1;
-				lakich[1]+=des.getFlash();
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=1;
+				gloxinia[1]+=des.getFlash();
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=1;
@@ -356,7 +356,7 @@ public class MatchController {
 		int num=0;
 		float max=desmond[1]/desmond[0];
 		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
-				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+				tilt[1]/tilt[0],gloxinia[1]/gloxinia[0],nekit[1]/nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -371,10 +371,10 @@ public class MatchController {
 			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]/gloxinia[0])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
@@ -389,12 +389,12 @@ public class MatchController {
 
 		float[] desmond = new float[2];
 		float[] blackVision = new float[2];
-		float[] lakich = new float[2];
+		float[] gloxinia = new float[2];
 		float[] tilt = new float[2];
 		float[] nekit = new float[2];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=1;
 				desmond[1]+=des.getTrade();
 			}
@@ -402,13 +402,13 @@ public class MatchController {
 				blackVision[0]+=1;
 				blackVision[1]+=des.getTrade();
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=1;
 				tilt[1]+=des.getTrade();
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=1;
-				lakich[1]+=des.getTrade();
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=1;
+				gloxinia[1]+=des.getTrade();
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=1;
@@ -418,7 +418,7 @@ public class MatchController {
 		int num=0;
 		float max=desmond[1]/desmond[0];
 		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
-				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+				tilt[1]/tilt[0],gloxinia[1]/gloxinia[0],nekit[1]/nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -433,10 +433,10 @@ public class MatchController {
 			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]/gloxinia[0])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
@@ -451,12 +451,12 @@ public class MatchController {
 
 		float[] desmond = new float[2];
 		float[] blackVision = new float[2];
-		float[] lakich = new float[2];
+		float[] gloxinia = new float[2];
 		float[] tilt = new float[2];
 		float[] nekit = new float[2];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=1;
 				desmond[1]+=des.getWallbang();
 			}
@@ -464,13 +464,13 @@ public class MatchController {
 				blackVision[0]+=1;
 				blackVision[1]+=des.getWallbang();
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=1;
 				tilt[1]+=des.getWallbang();
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=1;
-				lakich[1]+=des.getWallbang();
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=1;
+				gloxinia[1]+=des.getWallbang();
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=1;
@@ -480,7 +480,7 @@ public class MatchController {
 		int num=0;
 		float max=desmond[1]/desmond[0];
 		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
-				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+				tilt[1]/tilt[0],gloxinia[1]/gloxinia[0],nekit[1]/nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -495,10 +495,10 @@ public class MatchController {
 			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]/gloxinia[0])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
@@ -513,12 +513,12 @@ public class MatchController {
 
 		float[] desmond = new float[2];
 		float[] blackVision = new float[2];
-		float[] lakich = new float[2];
+		float[] gloxinia = new float[2];
 		float[] tilt = new float[2];
 		float[] nekit = new float[2];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=1;
 				desmond[1]+=des.getThreeKill();
 			}
@@ -526,13 +526,13 @@ public class MatchController {
 				blackVision[0]+=1;
 				blackVision[1]+=des.getThreeKill();
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=1;
 				tilt[1]+=des.getThreeKill();
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=1;
-				lakich[1]+=des.getThreeKill();
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=1;
+				gloxinia[1]+=des.getThreeKill();
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=1;
@@ -542,7 +542,7 @@ public class MatchController {
 		int num=0;
 		float max=desmond[1]/desmond[0];
 		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
-				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+				tilt[1]/tilt[0],gloxinia[1]/gloxinia[0],nekit[1]/nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -557,10 +557,10 @@ public class MatchController {
 			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]/gloxinia[0])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
@@ -575,12 +575,12 @@ public class MatchController {
 
 		float[] desmond = new float[2];
 		float[] blackVision = new float[2];
-		float[] lakich = new float[2];
+		float[] gloxinia = new float[2];
 		float[] tilt = new float[2];
 		float[] nekit = new float[2];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=1;
 				desmond[1]+=des.getFourKill();
 			}
@@ -588,13 +588,13 @@ public class MatchController {
 				blackVision[0]+=1;
 				blackVision[1]+=des.getFourKill();
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=1;
 				tilt[1]+=des.getFourKill();
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=1;
-				lakich[1]+=des.getFourKill();
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=1;
+				gloxinia[1]+=des.getFourKill();
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=1;
@@ -604,7 +604,7 @@ public class MatchController {
 		int num=0;
 		float max=desmond[1]/desmond[0];
 		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
-				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+				tilt[1]/tilt[0],gloxinia[1]/gloxinia[0],nekit[1]/nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -619,10 +619,10 @@ public class MatchController {
 			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]/gloxinia[0])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
@@ -637,12 +637,12 @@ public class MatchController {
 
 		float[] desmond = new float[2];
 		float[] blackVision = new float[2];
-		float[] lakich = new float[2];
+		float[] gloxinia = new float[2];
 		float[] tilt = new float[2];
 		float[] nekit = new float[2];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=1;
 				desmond[1]+=des.getAce();
 			}
@@ -650,13 +650,13 @@ public class MatchController {
 				blackVision[0]+=1;
 				blackVision[1]+=des.getAce();
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=1;
 				tilt[1]+=des.getAce();
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=1;
-				lakich[1]+=des.getAce();
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=1;
+				gloxinia[1]+=des.getAce();
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=1;
@@ -666,7 +666,7 @@ public class MatchController {
 		int num=0;
 		float max=desmond[1]/desmond[0];
 		float[] arr = {desmond[1]/desmond[0],blackVision[1]/blackVision[0],
-				tilt[1]/tilt[0],lakich[1]/lakich[0],nekit[1]/nekit[0]};
+				tilt[1]/tilt[0],gloxinia[1]/gloxinia[0],nekit[1]/nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -681,10 +681,10 @@ public class MatchController {
 			res = new String[]{"BlackVision",String.valueOf(blackVision[0]), String.valueOf(blackVision[1]/blackVision[0])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]/tilt[0])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]/lakich[0])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]/gloxinia[0])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]/nekit[0])};
@@ -699,12 +699,12 @@ public class MatchController {
 
 		int[] desmond = new int[7];
 		int[] blackVision = new int[7];
-		int[] lakich = new int[7];
+		int[] gloxinia = new int[7];
 		int[] tilt = new int[7];
 		int[] nekit = new int[7];
 
 		for(Match des: doceho){
-			if(des.getName().equals("desmond")){
+			if(des.getName().equals("Desmond")){
 				desmond[0]+=des.getClutchOne()+des.getClutchTwo()+ des.getClutchThree()+ des.getClutchFour()+des.getClutchFive();
 				desmond[1]+=des.getClutchOne();
 				desmond[2]+=des.getClutchTwo();
@@ -722,7 +722,7 @@ public class MatchController {
 				blackVision[5]+=des.getClutchFive();
 				blackVision[6]+=1;
 			}
-			else if(des.getName().equals("Tilt")){
+			else if(des.getName().equals("B4one")){
 				tilt[0]+=des.getClutchOne()+des.getClutchTwo()+ des.getClutchThree()+ des.getClutchFour()+des.getClutchFive();
 				tilt[1]+=des.getClutchOne();
 				tilt[2]+=des.getClutchTwo();
@@ -731,14 +731,14 @@ public class MatchController {
 				tilt[5]+=des.getClutchFive();
 				tilt[6]+=1;
 			}
-			else if(des.getName().equals("Lakich")){
-				lakich[0]+=des.getClutchOne()+des.getClutchTwo()+ des.getClutchThree()+ des.getClutchFour()+des.getClutchFive();
-				lakich[1]+=des.getClutchOne();
-				lakich[2]+=des.getClutchTwo();
-				lakich[3]+=des.getClutchThree();
-				lakich[4]+=des.getClutchFour();
-				lakich[5]+=des.getClutchFive();
-				lakich[6]+=1;
+			else if(des.getName().equals("Gloxinia")){
+				gloxinia[0]+=des.getClutchOne()+des.getClutchTwo()+ des.getClutchThree()+ des.getClutchFour()+des.getClutchFive();
+				gloxinia[1]+=des.getClutchOne();
+				gloxinia[2]+=des.getClutchTwo();
+				gloxinia[3]+=des.getClutchThree();
+				gloxinia[4]+=des.getClutchFour();
+				gloxinia[5]+=des.getClutchFive();
+				gloxinia[6]+=1;
 			}
 			else if (des.getName().equals("221w33")){
 				nekit[0]+=des.getClutchOne()+des.getClutchTwo()+ des.getClutchThree()+ des.getClutchFour()+des.getClutchFive();
@@ -752,7 +752,7 @@ public class MatchController {
 		}
 		int num=0;
 		int max=desmond[0];
-		int[] arr = {desmond[0],blackVision[0],tilt[0],lakich[0],nekit[0]};
+		int[] arr = {desmond[0],blackVision[0],tilt[0],gloxinia[0],nekit[0]};
 		for(int i =1; i<5;i++){
 			if(arr[i] > max){
 				num = i;
@@ -771,14 +771,14 @@ public class MatchController {
 					String.valueOf(blackVision[4]), String.valueOf(blackVision[5]), String.valueOf(blackVision[6])};
 		}
 		else if(num==2){
-			res = new String[]{"Tilt",String.valueOf(tilt[0]), String.valueOf(tilt[1]),
+			res = new String[]{"B4one",String.valueOf(tilt[0]), String.valueOf(tilt[1]),
 					String.valueOf(tilt[2]), String.valueOf(tilt[3]),
 					String.valueOf(tilt[4]), String.valueOf(tilt[5]), String.valueOf(tilt[6])};
 		}
 		else if(num==3){
-			res = new String[]{"Lakich",String.valueOf(lakich[0]), String.valueOf(lakich[1]),
-					String.valueOf(lakich[2]), String.valueOf(lakich[3]),
-					String.valueOf(lakich[4]), String.valueOf(lakich[5]), String.valueOf(lakich[6])};
+			res = new String[]{"Gloxinia",String.valueOf(gloxinia[0]), String.valueOf(gloxinia[1]),
+					String.valueOf(gloxinia[2]), String.valueOf(gloxinia[3]),
+					String.valueOf(gloxinia[4]), String.valueOf(gloxinia[5]), String.valueOf(gloxinia[6])};
 		}
 		else {
 			res = new String[]{"221w33",String.valueOf(nekit[0]), String.valueOf(nekit[1]),

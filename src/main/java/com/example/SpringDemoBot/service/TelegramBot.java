@@ -114,31 +114,31 @@ public class TelegramBot extends TelegramLongPollingBot {
                     topYear(chatId,2022);
                     break;
                 case "Матчи Desmond":
-                    allMatchesByPlayer(chatId,"desmond");
+                    allMatchesByPlayer(chatId,"Desmond");
                     break;
                 case "Матчи BlackVision":
                     allMatchesByPlayer(chatId,"BlackVision");
                     break;
-                case "Матчи Tilt":
-                    allMatchesByPlayer(chatId,"Tilt");
+                case "Матчи B4one":
+                    allMatchesByPlayer(chatId,"B4one");
                     break;
-                case "Матчи Lakich":
-                    allMatchesByPlayer(chatId,"Lakich");
+                case "Матчи Gloxinia":
+                    allMatchesByPlayer(chatId,"Gloxinia");
                     break;
                 case "Матчи 221w33":
                     allMatchesByPlayer(chatId,"221w33");
                     break;
                 case "Статистика Desmond":
-                    allStatsByName(chatId,"desmond");
+                    allStatsByName(chatId,"Desmond");
                     break;
                 case "Статистика BlackVision":
                     allStatsByName(chatId,"BlackVision");
                     break;
-                case "Статистика Tilt":
-                    allStatsByName(chatId,"Tilt");
+                case "Статистика B4one":
+                    allStatsByName(chatId,"B4one");
                     break;
-                case "Статистика Lakich":
-                    allStatsByName(chatId,"Lakich");
+                case "Статистика Gloxinia":
+                    allStatsByName(chatId,"Gloxinia");
                     break;
                 case "Статистика 221w33":
                     allStatsByName(chatId,"221w33");
@@ -258,7 +258,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         String[] arr = http.split(",");
 
         StringBuilder answerb = new StringBuilder("Последние 7 матчей " +name+":\n") ;
-        System.out.println(arr.length);
         for (int i = 0; i < arr.length; i+=18) {
             answerb.append("\n").append(arr[i+2])
                     .append("\n").append(arr[i+3])
@@ -461,13 +460,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         KeyboardRow row = new KeyboardRow();
         row.add("Матчи Desmond");
         row.add("Матчи BlackVision");
-        row.add("Матчи Tilt");
+        row.add("Матчи B4one");
 
         keyboardRows.add(row);
 
         row = new KeyboardRow();
 
-        row.add("Матчи Lakich");
+        row.add("Матчи Gloxinia");
         row.add("Матчи 221w33");
         row.add("Топ со всей статой");
 
@@ -485,13 +484,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         KeyboardRow row = new KeyboardRow();
         row.add("Статистика Desmond");
         row.add("Статистика BlackVision");
-        row.add("Статистика Tilt");
+        row.add("Статистика B4one");
 
         keyboardRows.add(row);
 
         row = new KeyboardRow();
 
-        row.add("Статистика Lakich");
+        row.add("Статистика Gloxinia");
         row.add("Статистика 221w33");
         row.add("Ну нажми, ну пожалуйста");
 
