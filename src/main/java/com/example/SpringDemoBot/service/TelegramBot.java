@@ -2,6 +2,7 @@ package com.example.SpringDemoBot.service;
 
 import com.example.SpringDemoBot.config.BotConfig;
 import com.example.SpringDemoBot.controller.MatchController;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
@@ -34,7 +36,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             this.execute(new SetMyCommands(listOfCommands,new BotCommandScopeDefault(),null));
         }
         catch (TelegramApiException e){
-
+            log.error("Error occurred: "+e.getMessage() );
         }
     }
 
@@ -57,93 +59,123 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             switch(messageText){
                 case "/start":
+                    log.info("/start");
                     sendMessage(chatId,"Hi, Cheboksar!");
                     break;
                 case "Игрок года":
+                    log.info("Игрок года");
                     sendMessage(chatId,"Выберите год");
                     break;
                 case "Топ по категории":
+                    log.info("Топ по категории");
                     sendMessage(chatId,"Выберите категорию");
                     break;
                 case "Топ со всей статой":
+                    log.info("Топ со всей статой");
                     sendMessage(chatId,"Нажми на кнопку");
                     break;
                 case "Вся статистика":
+                    log.info("Вся статистика");
                     sendMessage(chatId,"Статистика, моя статистика");
                     break;
                 case "Топ клатч":
+                    log.info("Топ клатч");
                     topClutch(chatId);
                     break;
                 case "Топ рейтинг":
+                    log.info("Топ рейтинг");
                     topRating(chatId);
                     break;
                 case "Топ энтри":
+                    log.info("Топ энтри");
                     topOpenKill(chatId);
                     break;
                 case "Топ флеш":
+                    log.info("Топ флеш");
                     topFlash(chatId);
                     break;
                 case "Топ размен":
+                    log.info("Топ размен");
                     topTrade(chatId);
                     break;
                 case "Топ прострел":
+                    log.info("Топ прострел");
                     topWallbang(chatId);
                     break;
                 case "Топ 3 kill":
+                    log.info("Топ 3 kill");
                     topThreeKill(chatId);
                     break;
                 case "Топ 4 kill":
+                    log.info("Топ 4 kill");
                     topFourKill(chatId);
                     break;
                 case "Топ ace":
+                    log.info("Топ ace");
                     topAce(chatId);
                     break;
                 case "18 год":
+                    log.info("18 год");
                     topYear(chatId,2018);
                     break;
                 case "19 год":
+                    log.info("19 год");
                     topYear(chatId,2019);
                     break;
                 case "20 год":
+                    log.info("20 год");
                     topYear(chatId,2020);
                     break;
                 case "21 год":
+                    log.info("21 год");
                     topYear(chatId,2021);
                     break;
                 case "22 год":
+                    log.info("22 год");
                     topYear(chatId,2022);
                     break;
                 case "Матчи Desmond":
+                    log.info("Матчи Desmond");
                     allMatchesByPlayer(chatId,"Desmond");
                     break;
                 case "Матчи BlackVision":
+                    log.info("Матчи BlackVision");
                     allMatchesByPlayer(chatId,"BlackVision");
                     break;
                 case "Матчи B4one":
+                    log.info("Матчи B4one");
                     allMatchesByPlayer(chatId,"B4one");
                     break;
                 case "Матчи Gloxinia":
+                    log.info("Матчи Gloxinia");
                     allMatchesByPlayer(chatId,"Gloxinia");
                     break;
                 case "Матчи 221w33":
+                    log.info("Матчи 221w33");
                     allMatchesByPlayer(chatId,"221w33");
                     break;
                 case "Статистика Desmond":
+                    log.info("Статистика Desmond");
                     allStatsByName(chatId,"Desmond");
                     break;
                 case "Статистика BlackVision":
+                    log.info("Статистика BlackVision");
                     allStatsByName(chatId,"BlackVision");
                     break;
                 case "Статистика B4one":
+                    log.info("Статистика B4one");
                     allStatsByName(chatId,"B4one");
                     break;
                 case "Статистика Gloxinia":
+                    log.info("Статистика Gloxinia");
                     allStatsByName(chatId,"Gloxinia");
                     break;
                 case "Статистика 221w33":
+                    log.info("Статистика 221w33");
                     allStatsByName(chatId,"221w33");
                     break;
                 case "Ну нажми, ну пожалуйста":
+                    log.info("Ну нажми, ну пожалуйста");
                     sendMessage(chatId,update.getMessage().getChat().getLastName()+
                             " ты думал что-то здесь будет? О нет. От тебя воняет говном, даже отсюда чувствую," +
                             " закрывай, закрывай бота и иди нахуй. Друг крутой, а ты лоханулся, сука. Аа, блядь. А.");
@@ -498,6 +530,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(message);
         }
         catch (TelegramApiException e){
+            log.error("Error occurred: "+e.getMessage() );
         }
     }
 
@@ -537,6 +570,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(sticker);
         }
         catch (TelegramApiException e){
+            log.error("Error occurred: "+e.getMessage() );
         }
     }
 }
