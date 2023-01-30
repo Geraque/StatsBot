@@ -57,19 +57,19 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             switch(messageText){
                 case "/start":
-                    startCommandReceived(chatId);
+                    sendMessage(chatId,"Hi, Cheboksar!");
                     break;
                 case "Игрок года":
-                    topPlayer(chatId);
+                    sendMessage(chatId,"Выберите год");
                     break;
                 case "Топ по категории":
-                    topCategory(chatId);
+                    sendMessage(chatId,"Выберите категорию");
                     break;
                 case "Топ со всей статой":
-                    playerStats(chatId);
+                    sendMessage(chatId,"Нажми на кнопку");
                     break;
                 case "Вся статистика":
-                    allStats(chatId);
+                    sendMessage(chatId,"Статистика, моя статистика");
                     break;
                 case "Топ клатч":
                     topClutch(chatId);
@@ -144,7 +144,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                     allStatsByName(chatId,"221w33");
                     break;
                 case "Ну нажми, ну пожалуйста":
-                    sucks(chatId,update.getMessage().getChat().getLastName());
+                    sendMessage(chatId,update.getMessage().getChat().getLastName()+
+                            " ты думал что-то здесь будет? О нет. От тебя воняет говном, даже отсюда чувствую," +
+                            " закрывай, закрывай бота и иди нахуй. Друг крутой, а ты лоханулся, сука. Аа, блядь. А.");
                     break;
                 default:
                     sendSticker(chatId);
@@ -152,36 +154,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
-    private void startCommandReceived(long chatId){
-        String answer = "Hi, Cheboksar!";
-        sendMessage(chatId,answer);
-    }
-
-    private void topPlayer(long chatId){
-        String answer = "Выберите год";
-        sendMessage(chatId,answer);
-    }
-
-    private void topCategory(long chatId){
-        String answer = "Выберите категорию";
-        sendMessage(chatId,answer);
-    }
-
-    private void allStats(long chatId){
-        String answer = "Нажми на кнопку";
-        sendMessage(chatId,answer);
-    }
-
-    private void playerStats(long chatId){
-        String answer = "Статистика, моя статистика";
-        sendMessage(chatId,answer);
-    }
-
-    private void sucks(long chatId, String name){
-        String answer = name+" ты думал что-то здесь будет? О нет. От тебя воняет говном, даже отсюда чувствую," +
-                " закрывай, закрывай бота и иди нахуй. Друг крутой, а ты лоханулся, сука. Аа, блядь. А.";
-        sendMessage(chatId,answer);
-    }
     private void topClutch(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
