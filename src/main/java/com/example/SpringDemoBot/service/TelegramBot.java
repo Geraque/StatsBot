@@ -195,8 +195,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         String answer = "Топ по клатчам: " +
                 "\nИгрок: "+arr[0]+
-                "\nВсего игр: "+arr[1]+
-                "\nОбщее количество клатчей: "+arr[7]+
+                "\nВсего игр: "+arr[7]+
+                "\nОбщее количество клатчей: "+arr[1]+
                 "\n1vs1: "+arr[2]+
                 "\n1vs2: "+arr[3]+
                 "\n1vs3: "+arr[4]+
