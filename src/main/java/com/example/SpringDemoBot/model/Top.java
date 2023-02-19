@@ -2,6 +2,7 @@ package com.example.SpringDemoBot.model;
 
 import javax.persistence.*;
 
+//Таблица с итогами года
 @Entity
 @Table(name = "top")
 public class Top {

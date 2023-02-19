@@ -1,7 +1,6 @@
 package com.example.SpringDemoBot.service;
 
 import com.example.SpringDemoBot.config.BotConfig;
-import com.example.SpringDemoBot.controller.MatchController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -30,6 +29,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public TelegramBot(BotConfig config){
         this.config = config;
+        //Добавление меню
         List<BotCommand> listOfCommands = new ArrayList<>();
         listOfCommands.add(new BotCommand("/start","Вернуться в главное меню"));
         try{
@@ -50,6 +50,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         return config.getToken();
     }
 
+    //Получение и реакция на сообщение
     @Override
     public void onUpdateReceived(Update update) {
 
@@ -186,10 +187,12 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    //Получение топ клатчера
     private void topClutch(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
         String http = restTemplate.getForObject("http://localhost:8080/getclutches", String.class);
+        //Удаление лишних символов
         http = http.replaceAll("[\\[-\\]\"]","");
         String[] arr = http.split(",");
 
@@ -205,6 +208,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
 
+    //Получение топа за определённый год
     private void topYear(long chatId,int year){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -224,6 +228,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
 
+    //Получение всей статистики игрока
     private void allStatsByName(long chatId,String name){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -254,6 +259,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
+    //Получение последних 7 матчей игрока
     private void allMatchesByPlayer(long chatId, String name){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -286,6 +292,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
 
+    //Получение топ 1 по рейтингу
     private void topRating(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -300,6 +307,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
 
+    //Получение топ 1 по опен килам
     private void topOpenKill(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -312,7 +320,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "\nЭнтри за матч: "+arr[2];
         sendMessage(chatId,answer);
     }
-
+    //Получение топ 1 по флешкам
     private void topFlash(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -325,7 +333,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "\nФлешек за матч: "+arr[2];
         sendMessage(chatId,answer);
     }
-
+    //Получение топ 1 по разменам
     private void topTrade(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -338,7 +346,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "\nРазменов за матч: "+arr[2];
         sendMessage(chatId,answer);
     }
-
+    //Получение топ 1 по прострелам
     private void topWallbang(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -351,6 +359,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "\nПрострелов за матч: "+arr[2];
         sendMessage(chatId,answer);
     }
+
+    //Получение топ 1 по трипл киллам
     private void topThreeKill(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -364,6 +374,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
 
+    //Получение топ 1 по квадро киллам
     private void topFourKill(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -377,6 +388,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
 
+    //Получение топ 1 по эйсам
     private void topAce(long chatId){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -390,6 +402,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId,answer);
     }
 
+    //Генерация изначальных кнопок
     private void startButton(SendMessage message){
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 
@@ -405,6 +418,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         message.setReplyMarkup(keyboardMarkup);
     }
 
+    //Генерация кнопок с выбором года для топа
     private void topPlayerButton(SendMessage message){
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 
@@ -427,6 +441,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
+    //Генерация кнопок с категориями топов
     private void topCategoryButton(SendMessage message){
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 
@@ -457,6 +472,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
+    //Генерация кнопок с матчами игроков
     private void allStatsButton(SendMessage message){
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 
@@ -481,6 +497,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
+    //Генерация кнопок со статистикой игроков
     private void playerStatsButton(SendMessage message){
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
 
@@ -505,6 +522,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     }
 
+    //Отправка текстового сообщения
     private void sendMessage(long chatId, String textToSend){
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
@@ -534,6 +552,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+    //Отправка стикера
     private void sendSticker(long chatId){
         SendSticker sticker = new SendSticker();
         sticker.setChatId(String.valueOf(chatId));

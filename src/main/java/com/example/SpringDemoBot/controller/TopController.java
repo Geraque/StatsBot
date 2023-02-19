@@ -14,17 +14,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//Запросы к таблице с итогами года
 @RestController
 @RequestMapping("/top")
 public class TopController {
 	@Autowired
 	private TopRepository topRepository;
 
+	//Получение всей информации
 	@GetMapping("/all")
 	public List<Top> getAllTop() {
 		return topRepository.findAll();
 	}
 
+	//Получение информации по году
 	@GetMapping("/getbyyear/{year}")
 	public ResponseEntity<List<String>> getYearTop(@PathVariable(value = "year") int year) {
 		List<Top> doceho = topRepository.findAll();
@@ -40,6 +43,7 @@ public class TopController {
 		return ResponseEntity.ok().body(list);
 	}
 
+	//Получение информации по id
 	@GetMapping("/{id}")
 	public ResponseEntity<Top> getTopById(@PathVariable(value = "id") Long topId)
 			throws ResourceNotFoundException {
@@ -48,6 +52,7 @@ public class TopController {
 		return ResponseEntity.ok().body(top);
 	}
 
+	//Получение информации по имени
 	@GetMapping("/getbyname/{name}")
 	public ResponseEntity<List<Top>> getTopByName(@PathVariable(value = "name") String topName)
 			throws ResourceNotFoundException {
@@ -61,11 +66,13 @@ public class TopController {
 		return ResponseEntity.ok().body(result);
 	}
 
+	//Создание итогов
 	@PostMapping("/create")
 	public Top createTop(@Valid @RequestBody Top top) {
 		return topRepository.save(top);
 	}
 
+	//Изменение итогов по id
 	@PutMapping("/{id}")
 	public ResponseEntity<Top> updateTop(@PathVariable(value = "id") Long topId,
 			@Valid @RequestBody Top topDetails) throws ResourceNotFoundException {
@@ -82,6 +89,7 @@ public class TopController {
 		return ResponseEntity.ok(updatedTop);
 	}
 
+	//Удаление информации по id
 	@DeleteMapping("/{id}")
 	public Map<String, Boolean> deleteTop(@PathVariable(value = "id") Long topId)
 			throws ResourceNotFoundException {

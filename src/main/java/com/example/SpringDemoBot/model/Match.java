@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//Таблица с основной информацией
 @Entity
 @Table(name = "desmond")
 public class Match {

@@ -19,17 +19,20 @@ import com.example.SpringDemoBot.exception.ResourceNotFoundException;
 import com.example.SpringDemoBot.model.Match;
 import com.example.SpringDemoBot.repository.MatchRepository;
 
+//Запросы к основной таблице со всеми матчами
 @RestController
 @RequestMapping()
 public class MatchController {
 	@Autowired
 	private MatchRepository matchRepository;
 
+	//Получение всех матчей
 	@GetMapping("/matches")
 	public List<Match> getAllMatches() {
 		return matchRepository.findAll();
 	}
 
+	//Получение матчей по id
 	@GetMapping("/matches/{id}")
 	public ResponseEntity<Match> getMatchById(@PathVariable(value = "id") Long matchId)
 			throws ResourceNotFoundException {
@@ -38,13 +41,16 @@ public class MatchController {
 		return ResponseEntity.ok().body(match);
 	}
 
+	//Получение матчей по игроку
 	@GetMapping("/getbyname/{name}")
 	public ResponseEntity<List<Match>> getMatchByName(@PathVariable(value = "name") String matchName)
 			throws ResourceNotFoundException {
+		//Получаем все матчи и ревёрсим, чтобы первыми шли последние матчи
 		List<Match> match = matchRepository.findAll();
 		Collections.reverse(match);
 		List<Match> result = new ArrayList<Match>();
 		int count =0;
+		//Выдаём только последние 7 матчей
 		for(Match des: match){
 			if(des.getName().equals(matchName) && count<7){
 				result.add(des);
@@ -54,11 +60,13 @@ public class MatchController {
 		return ResponseEntity.ok().body(result);
 	}
 
+	//Получение всей статистики игрока
 	@GetMapping("/getplayerstats/{name}")
 	public ResponseEntity<float[]> getPlayerStats(@PathVariable(value = "name") String matchName)
 			throws ResourceNotFoundException {
 		List<Match> match = matchRepository.findAll();
 		float[] arr = new float[15];
+		//Распределение информации об игроке по различным категориям
 		for(Match des: match){
 			if(des.getName().equals(matchName)){
 				arr[0]++;
@@ -78,12 +86,15 @@ public class MatchController {
 				arr[14]+=des.getClutchFive();
 			}
 		}
+		//Вычисление средней статистики за матч, а не общей
 		for (int i = 1; i < 15; i++) {
 			arr[i]/=arr[0];
 		}
 		return ResponseEntity.ok().body(arr);
 	}
 
+
+	//Получение всей статистики всех игроков
 	@GetMapping("/getallstats")
 	public ResponseEntity<float[]> getAllStats()
 			throws ResourceNotFoundException {
@@ -196,6 +207,7 @@ public class MatchController {
 		return ResponseEntity.ok().body(arr);
 	}
 
+	//Получение топ 1 по рейтингу
 	@GetMapping("/getrating")
 	public ResponseEntity<String[]> getRating()
 			throws ResourceNotFoundException {
@@ -239,6 +251,7 @@ public class MatchController {
 				max = arr[i];
 			}
 		}
+		//Выяснение топ 1
 		String[] res = new String[3];
 		if(num==0){
 			res = new String[]{"Desmond",String.valueOf(desmond[0]), String.valueOf(desmond[1]/desmond[0])};
@@ -258,6 +271,7 @@ public class MatchController {
 		return ResponseEntity.ok().body(res);
 	}
 
+	//Получение топ 1 по опен киллам
 	@GetMapping("/getopenkill")
 	public ResponseEntity<String[]> getOpenKill()
 			throws ResourceNotFoundException {
@@ -320,6 +334,7 @@ public class MatchController {
 		return ResponseEntity.ok().body(res);
 	}
 
+	//Получение топ 1 по флешкам
 	@GetMapping("/getflash")
 	public ResponseEntity<String[]> getFlash()
 			throws ResourceNotFoundException {
@@ -382,6 +397,7 @@ public class MatchController {
 		return ResponseEntity.ok().body(res);
 	}
 
+	//Получение топ 1 по размену
 	@GetMapping("/gettrade")
 	public ResponseEntity<String[]> getTrade()
 			throws ResourceNotFoundException {
@@ -443,7 +459,7 @@ public class MatchController {
 		}
 		return ResponseEntity.ok().body(res);
 	}
-
+	//Получение топ 1 по прострелам
 	@GetMapping("/getwallbang")
 	public ResponseEntity<String[]> getWallbang()
 			throws ResourceNotFoundException {
@@ -505,7 +521,7 @@ public class MatchController {
 		}
 		return ResponseEntity.ok().body(res);
 	}
-
+	//Получение топ 1 по трипл киллам
 	@GetMapping("/getthreekill")
 	public ResponseEntity<String[]> getThreeKill()
 			throws ResourceNotFoundException {
@@ -567,7 +583,7 @@ public class MatchController {
 		}
 		return ResponseEntity.ok().body(res);
 	}
-
+	//Получение топ 1 по квадро киллам
 	@GetMapping("/getfourkill")
 	public ResponseEntity<String[]> getFourKill()
 			throws ResourceNotFoundException {
@@ -629,7 +645,7 @@ public class MatchController {
 		}
 		return ResponseEntity.ok().body(res);
 	}
-
+	//Получение топ 1 по эйсам
 	@GetMapping("/getace")
 	public ResponseEntity<String[]> getAce()
 			throws ResourceNotFoundException {
@@ -691,7 +707,7 @@ public class MatchController {
 		}
 		return ResponseEntity.ok().body(res);
 	}
-
+	//Получение топ 1 по клатчам
 	@GetMapping("/getclutches")
 	public ResponseEntity<String[]> getClutches()
 			throws ResourceNotFoundException {
@@ -787,12 +803,13 @@ public class MatchController {
 		}
 		return ResponseEntity.ok().body(res);
 	}
-
+	//Создание матча
 	@PostMapping("/matches")
 	public Match createMatch(@Valid @RequestBody Match match) {
 		return matchRepository.save(match);
 	}
 
+	//Изменение матча по id
 	@PutMapping("/matches/{id}")
 	public ResponseEntity<Match> updateMatch(@PathVariable(value = "id") Long desmondId,
 											   @Valid @RequestBody Match matchDetails) throws ResourceNotFoundException {
@@ -822,6 +839,7 @@ public class MatchController {
 		return ResponseEntity.ok(updatedMatch);
 	}
 
+	//Удаление матча по id
 	@DeleteMapping("/matches/{id}")
 	public Map<String, Boolean> deleteMatch(@PathVariable(value = "id") Long desmondId)
 			throws ResourceNotFoundException {
